@@ -2,7 +2,8 @@ import axios from "axios";
 import * as cheerio from "cheerio";
 import { normalizeUrl } from "../utils/normalizeUrl.js";
 
-const BASE_DOMAIN = "www.edzy.ai";
+const BASE_DOMAIN = process.env.BASE_DOMAIN;
+
 
 export const crawlPage = async (pageUrl) => {
   try {

@@ -25,9 +25,20 @@ export const normalizeUrl = (rawUrl, baseUrl = null) => {
     urlObj.search = "";
     urlObj.hash = "";
 
-    // Remove trailing slash (except root)
     let pathname = urlObj.pathname;
-    if (pathname.endsWith("/") && pathname !== "/") {
+
+    // Canonicalize root
+    if (!pathname || pathname === "") {
+      pathname = "/";
+    }
+
+    // Keep slash ONLY for root
+    if (pathname === "/") {
+      return `${urlObj.protocol}//${urlObj.hostname}/`;
+    }
+
+    // Remove trailing slash for non-root
+    if (pathname.endsWith("/")) {
       pathname = pathname.slice(0, -1);
     }
 

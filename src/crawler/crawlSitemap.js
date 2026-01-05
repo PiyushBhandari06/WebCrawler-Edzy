@@ -5,7 +5,7 @@ import { savePage } from "../storage/savePage.js";
 export const crawlSitemap = async () => {
   const urls = await parseSitemap();
 
-  console.log(`Starting crawl for ${urls.length} pages`);
+  console.log(`Starting crawl for ${urls.length} pages...`);
 
   let success = 0;
   let failed = 0;
@@ -23,8 +23,8 @@ export const crawlSitemap = async () => {
       await savePage(pageData);
       success++;
 
-      if (success % 50 === 0) {
-        console.log(`Crawled ${success}/${urls.length}`);
+      if (success % 5 === 0) {
+        console.log(`Crawled ${success}/${urls.length}...`);
       }
     } catch (err) {
       failed++;
@@ -32,7 +32,7 @@ export const crawlSitemap = async () => {
     }
   }
 
-  console.log("Crawl finished");
-  console.log("Success:", success);
-  console.log("Failed:", failed);
+  console.log("Crawl finished !");
+  console.log("Successfull crawls:", success);
+  console.log("Failed crawls:", failed);
 };

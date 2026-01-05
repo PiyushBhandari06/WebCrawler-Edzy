@@ -4,9 +4,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon src/index.js",
-    "crawl": "nodemon src/index.js",
-    "server": "nodemon src/server.js"
+    "server": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "crawl": "node src/index.js crawl"
   },
   "author": "",
   "license": "ISC",

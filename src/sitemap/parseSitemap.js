@@ -1,8 +1,12 @@
+import dotenv from "dotenv";
+dotenv.config({ path: "./.env" });
+
 import axios from "axios";
 import * as cheerio from "cheerio";
 import { normalizeUrl } from "../utils/normalizeUrl.js";
 
-const SITEMAP_URL = "https://www.edzy.ai/sitemap.xml";
+const SITEMAP_URL = process.env.SITEMAP_URL;
+console.log("Using sitemap URL:", process.env.SITEMAP_URL);
 
 export const parseSitemap = async () => {
   try {

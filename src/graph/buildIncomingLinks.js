@@ -1,10 +1,10 @@
 import Page from "../models/Page.model.js";
 
 export const buildIncomingLinks = async () => {
-  console.log("Building incoming links...");
-
   // 1. Fetch all pages (only url + outgoingLinks needed)
   const pages = await Page.find({}, { url: 1, outgoingLinks: 1 });
+
+  console.log(`Processing ${pages.length} pages for in-link build...`);
 
   // 2. Build a lookup set of valid page URLs
   const urlSet = new Set(pages.map((p) => p.url));
@@ -23,6 +23,7 @@ export const buildIncomingLinks = async () => {
 
       const targetUrl = link.url;
 
+      if (sourceUrl === targetUrl) continue; // The page should not be linking to itself'
       // Only count links within sitemap
       if (!urlSet.has(targetUrl)) continue;
 
@@ -33,10 +34,9 @@ export const buildIncomingLinks = async () => {
     }
 
     processed++;
+
     if (processed % 100 === 0) {
       console.log(`Processed ${processed}/${pages.length}`);
     }
   }
-
-  console.log("Incoming links build complete.");
 };
